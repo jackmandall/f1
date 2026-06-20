@@ -179,22 +179,22 @@
     <tbody>
       <tr><td>Holiday total</td><td class="muted col-j">&mdash;</td><td class="muted col-e">&mdash;</td><td class="num" id="totalCell">&pound;9,932.79</td></tr>
       <tr><td><b>Your share</b></td>
-        <td class="num col-j">&pound;&nbsp;<input id="jShare" type="number" min="0" step="50"></td>
-        <td class="num col-e">&pound;&nbsp;<input id="eShare" type="number" min="0" step="50"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jShare" type="text" inputmode="decimal"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eShare" type="text" inputmode="decimal"></td>
         <td class="num" id="shareTot"></td></tr>
       <tr><td>Deposit now</td>
-        <td class="num col-j">&pound;&nbsp;<input id="jDep" type="number" min="0" step="50" value="100"></td>
-        <td class="num col-e">&pound;&nbsp;<input id="eDep" type="number" min="0" step="50" value="100"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jDep" type="text" inputmode="decimal" value="100.00"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eDep" type="text" inputmode="decimal" value="100.00"></td>
         <td class="num muted" id="depTot"></td></tr>
       <tr><td>Balance by 22 Aug</td>
         <td class="num muted col-j" id="jBal"></td><td class="num muted col-e" id="eBal"></td><td class="num muted" id="balTot"></td></tr>
       <tr><td><b>June pay</b></td>
-        <td class="num col-j">&pound;&nbsp;<input id="jJune" type="number" min="0" step="50" value="2000"></td>
-        <td class="num col-e">&pound;&nbsp;<input id="eJune" type="number" min="0" step="50" value="2000"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jJune" type="text" inputmode="decimal" value="2000.00"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eJune" type="text" inputmode="decimal" value="2000.00"></td>
         <td class="num" id="juneTot" style="color:var(--green);font-weight:700"></td></tr>
       <tr><td><b>July pay</b></td>
-        <td class="num col-j">&pound;&nbsp;<input id="jJuly" type="number" min="0" step="50"></td>
-        <td class="num col-e">&pound;&nbsp;<input id="eJuly" type="number" min="0" step="50"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jJuly" type="text" inputmode="decimal"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eJuly" type="text" inputmode="decimal"></td>
         <td class="num" id="julyTot" style="color:var(--green);font-weight:700"></td></tr>
       <tr><td><b>Check</b></td>
         <td class="small col-j" id="jChk" style="font-weight:700"></td>
@@ -210,7 +210,7 @@
   function $(id){return document.getElementById(id);}
   function v(id){return parseFloat($(id).value)||0;}
   function money(n){return '£'+(Math.round(n*100)/100).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});}
-  function setVal(id,n){$(id).value=(Math.round(n*100)/100);}
+  function setVal(id,n){$(id).value=(Math.round(n*100)/100).toFixed(2);}
   function julyFromJune(p){var bal=v(p+'Share')-v(p+'Dep'),t=bal-v(p+'June'); if(t<0)t=0; setVal(p+'July',t);}
   function juneFromJuly(p){var bal=v(p+'Share')-v(p+'Dep'),t=bal-v(p+'July'); if(t<0)t=0; setVal(p+'June',t);}
   function render(){
@@ -272,13 +272,4 @@
   <li><b>Resort fees are not in the price</b> and are paid at the hotel: both Bellagio and the Cosmopolitan charge <b>$55 per room per night plus Clark County tax (~13.4%)</b>, so about <b>$62 a night</b>. Over the 10 nights that is roughly <b>$625, about £490</b> on top, and it is the same for either option since both hotels charge $55. The fee covers wifi, the fitness centre and local calls.</li>
   <li><b>No race tickets.</b> You are skipping grandstands and soaking up the weekend around the Strip instead. Worth knowing: free trackside views are deliberately fenced off and the Strip has road closures on the race evenings (soft from 3pm, full 5pm to roughly 2am), so plan to watch from venues with screens or a trackside bar rather than the street. Bellagio sits right on the circuit, which helps.</li>
   <li><b>Option B means changing hotels on 19 November</b>, the first day of the GP. Happy with the mid-trip move for the £230 saving, or prefer the single Bellagio stay?</li>
-  <li><b>Price subject to change</b> until booked, and Virgin notes flight times can still shift until the schedule is confirmed within 331 days of travel.</li>
-</ul>
-
-<div class="foot">
-  Prepared 20 June 2026 from Virgin Atlantic Holidays quote 7071078 (two versions). Prices are Virgin's quoted figures and remain subject to change until booked. Upper Class benefits and room details from Virgin Atlantic and the hotels' own pages; confirm chauffeur and exact inclusions on your specific fare at booking.
-</div>
-
-</div>
-</body>
-</html>
+  <li><b>Price subject to change</b> until booked, and Virgin notes flight times can still shift until the
