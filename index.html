@@ -156,38 +156,49 @@
   .calc input{width:130px;padding:7px 9px;border:1px solid #cdd2db;border-radius:7px;font-size:15px;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
   .calc input:focus{outline:2px solid var(--red);border-color:var(--red)}
   .calc td{vertical-align:middle}
+  .tabbtns{display:none;gap:6px;margin-bottom:10px}
+  @media (max-width:600px){
+    .tabbtns{display:flex}
+    .calc[data-person="j"] .col-e{display:none}
+    .calc[data-person="e"] .col-j{display:none}
+    .calc table{min-width:0}
+  }
 </style>
-<div class="card calc">
+<div class="card calc" id="calcCard" data-person="j">
   <p class="small muted" style="margin-top:0">Everything in the <b>Jack and Emma</b> columns is editable: each person's share, deposit, June and July. Edit a payment and that person's other payment recalculates so their <b>deposit + June + July clears their share</b> by 22 August. Edit one person's share and the other adjusts so the two still add up to the holiday total. Pre-set to &pound;2,000 each in June, the rest in July.</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
     <button id="optA" class="optbtn">Option A &middot; Bellagio &middot; &pound;10,163.43</button>
     <button id="optB" class="optbtn active">Option B &middot; Cosmo + Bellagio &middot; &pound;9,932.79</button>
   </div>
+  <div class="tabbtns">
+    <button id="tabJack" class="optbtn active" type="button">Jack</button>
+    <button id="tabEmma" class="optbtn" type="button">Emma</button>
+  </div>
   <table>
-    <thead><tr><th>Item</th><th>Jack</th><th>Emma</th><th>Total (both)</th></tr></thead>
+    <thead><tr><th>Item</th><th class="col-j">Jack</th><th class="col-e">Emma</th><th>Total (both)</th></tr></thead>
     <tbody>
-      <tr><td>Holiday total</td><td class="muted">&mdash;</td><td class="muted">&mdash;</td><td class="num" id="totalCell">&pound;9,932.79</td></tr>
+      <tr><td>Holiday total</td><td class="muted col-j">&mdash;</td><td class="muted col-e">&mdash;</td><td class="num" id="totalCell">&pound;9,932.79</td></tr>
       <tr><td><b>Your share</b></td>
-        <td class="num">&pound;&nbsp;<input id="jShare" type="number" min="0" step="50"></td>
-        <td class="num">&pound;&nbsp;<input id="eShare" type="number" min="0" step="50"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jShare" type="number" min="0" step="50"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eShare" type="number" min="0" step="50"></td>
         <td class="num" id="shareTot"></td></tr>
       <tr><td>Deposit now</td>
-        <td class="num">&pound;&nbsp;<input id="jDep" type="number" min="0" step="50" value="100"></td>
-        <td class="num">&pound;&nbsp;<input id="eDep" type="number" min="0" step="50" value="100"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jDep" type="number" min="0" step="50" value="100"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eDep" type="number" min="0" step="50" value="100"></td>
         <td class="num muted" id="depTot"></td></tr>
       <tr><td>Balance by 22 Aug</td>
-        <td class="num muted" id="jBal"></td><td class="num muted" id="eBal"></td><td class="num muted" id="balTot"></td></tr>
+        <td class="num muted col-j" id="jBal"></td><td class="num muted col-e" id="eBal"></td><td class="num muted" id="balTot"></td></tr>
       <tr><td><b>June pay</b></td>
-        <td class="num">&pound;&nbsp;<input id="jJune" type="number" min="0" step="50" value="2000"></td>
-        <td class="num">&pound;&nbsp;<input id="eJune" type="number" min="0" step="50" value="2000"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jJune" type="number" min="0" step="50" value="2000"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eJune" type="number" min="0" step="50" value="2000"></td>
         <td class="num" id="juneTot" style="color:var(--green);font-weight:700"></td></tr>
       <tr><td><b>July pay</b></td>
-        <td class="num">&pound;&nbsp;<input id="jJuly" type="number" min="0" step="50"></td>
-        <td class="num">&pound;&nbsp;<input id="eJuly" type="number" min="0" step="50"></td>
+        <td class="num col-j">&pound;&nbsp;<input id="jJuly" type="number" min="0" step="50"></td>
+        <td class="num col-e">&pound;&nbsp;<input id="eJuly" type="number" min="0" step="50"></td>
         <td class="num" id="julyTot" style="color:var(--green);font-weight:700"></td></tr>
       <tr><td><b>Check</b></td>
-        <td class="small" id="jChk" style="font-weight:700"></td>
-        <td class="small" id="eChk" style="font-weight:700"></td>
+        <td class="small col-j" id="jChk" style="font-weight:700"></td>
+        <td class="small col-e" id="eChk" style="font-weight:700"></td>
         <td class="small" id="allChk" style="font-weight:700"></td></tr>
     </tbody>
   </table>
@@ -235,6 +246,9 @@
   function pick(o){sel=o; $('optA').classList.toggle('active',o==='A'); $('optB').classList.toggle('active',o==='B'); initShares();}
   $('optA').addEventListener('click',function(){pick('A');});
   $('optB').addEventListener('click',function(){pick('B');});
+  function person(p){$('calcCard').setAttribute('data-person',p); $('tabJack').classList.toggle('active',p==='j'); $('tabEmma').classList.toggle('active',p==='e');}
+  $('tabJack').addEventListener('click',function(){person('j');});
+  $('tabEmma').addEventListener('click',function(){person('e');});
   initShares();
 })();
 </script>
