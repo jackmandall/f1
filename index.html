@@ -242,7 +242,7 @@
     julyFromJune('j'); julyFromJune('e'); render();}
   $('jShare').addEventListener('input',function(){shareChanged('j');});
   $('eShare').addEventListener('input',function(){shareChanged('e');});
-  function initShares(){var full=totals[sel]; setVal('jShare',full/2); setVal('eShare',full/2); julyFromJune('j'); julyFromJune('e'); render();}
+  function initShares(){var tp=Math.round(totals[sel]*100); var jp=Math.ceil(tp/2); setVal('jShare',jp/100); setVal('eShare',(tp-jp)/100); julyFromJune('j'); julyFromJune('e'); render();}
   function pick(o){sel=o; $('optA').classList.toggle('active',o==='A'); $('optB').classList.toggle('active',o==='B'); initShares();}
   $('optA').addEventListener('click',function(){pick('A');});
   $('optB').addEventListener('click',function(){pick('B');});
