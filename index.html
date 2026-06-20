@@ -7,6 +7,7 @@
 <style>
   :root{--ink:#030C16;--muted:#5b6472;--line:#e6e8ee;--bg:#f6f8fc;--card:#fff;--red:#da0530;--green:#15803d;--amber:#b45309}
   *{box-sizing:border-box}
+  html,body{overflow-x:hidden;max-width:100%}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
   .wrap{max-width:1000px;margin:0 auto;padding:32px 20px 80px}
   header.top{border-bottom:3px solid var(--red);padding-bottom:16px;margin-bottom:24px}
@@ -35,12 +36,11 @@
     h2{font-size:17px;margin:26px 0 10px}
     h3{font-size:14px}
     table{font-size:13px}
-    th,td{padding:8px 8px}
+    th,td{padding:8px 6px}
     .card{padding:14px 14px}
     ul{padding-left:16px}
-    .calc{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .calc table{min-width:470px}
-    .calc input{width:80px;padding:6px;font-size:14px}
+    .calc table{min-width:0;width:100%;table-layout:fixed}
+    .calc input{width:100%;max-width:90px;padding:6px 4px;font-size:14px}
     .optbtn{font-size:12px;padding:8px 10px}
   }
 </style>
